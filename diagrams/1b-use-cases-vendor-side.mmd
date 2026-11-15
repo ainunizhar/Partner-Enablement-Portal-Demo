@@ -1,0 +1,61 @@
+flowchart LR
+  subgraph PORTAL["Northwind Security side"]
+    S16(["Sign in with Microsoft Entra ID"])
+    S1(["Invite partners, review applications"])
+    S2(["Verify and approve deals (step 1)"])
+    S3(["Resolve conflicts between partners"])
+    S4(["Monitor deals, approve extensions"])
+    S5(["Request a tier change"])
+    S6(["Answer partner support cases"])
+    S7(["Message their own partners"])
+    S8(["Request content from Marketing"])
+    S9(["Approve step 2 and the final step"])
+    S10(["Reassign partner owners"])
+    S19(["Record payments to partners"])
+    S13(["Handle content requests"])
+    S11(["Publish resources and price lists"])
+    S12(["Post company announcements"])
+    S14(["Manage staff accounts and roles"])
+    S15(["Offboard leavers, hand over partners"])
+    S17(["Review the audit log"])
+    S18(["Confirm the deal by email"])
+  end
+
+  ALL["Any Northwind Security staff<br/>every role below"]
+  CM["Partner Manager<br/>owner, one per territory, step 1"]
+  DF["Approvers<br/>step 2 and final approval"]
+  FN["Northwind Security Finance<br/>pays approved payouts"]
+  MK["Marketing<br/>content team"]
+  AD["Portal Admin<br/>staff accounts only"]
+  SOC[["SOC / SIEM<br/>system, not a person"]]
+  CU["Customer contact<br/>not a portal user"]
+
+  S16 --- ALL
+  S1 --- CM
+  S2 --- CM
+  S3 --- CM
+  S4 --- CM
+  S5 --- CM
+  S6 --- CM
+  S7 --- CM
+  S8 --- CM
+  S9 --- DF
+  S10 --- DF
+  S19 --- FN
+  S13 --- MK
+  S11 --- MK
+  S12 --- MK
+  S14 --- AD
+  S15 --- AD
+  S17 --- AD
+  S17 --- SOC
+  S18 --- CU
+
+  classDef actor fill:#FFFFFF,stroke:#1B2B3C,color:#1B2B3C
+  classDef uc fill:#FFFFFF,stroke:#3C4650,color:#1B2B3C
+  classDef content fill:#EAF1F7,stroke:#1F4E79,color:#173B5C
+  classDef system fill:#F8F9FB,stroke:#9AA0A8,color:#1B2B3C
+  class ALL,CM,DF,FN,MK,AD,CU actor
+  class S16,S1,S2,S3,S4,S5,S6,S8,S9,S10,S13,S14,S15,S17,S18,S19 uc
+  class S7,S11,S12 content
+  class SOC system

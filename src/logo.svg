@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="236" height="40" viewBox="0 0 236 40" role="img" aria-label="Northwind Security (fictional)">
+  <path d="M18 2 L33 7.5 V18.5 C33 27.8 26.8 34.8 18 38 C9.2 34.8 3 27.8 3 18.5 V7.5 Z" fill="#1F4E79"/>
+  <path d="M18 8 L24 26 L18 22.2 L12 26 Z" fill="#F18F01"/>
+  <text x="42" y="27" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="20" letter-spacing="0.2"><tspan font-weight="700" fill="#1F4E79">Northwind</tspan><tspan dx="6" font-weight="400" fill="#2E86AB">Security</tspan></text>
+</svg>

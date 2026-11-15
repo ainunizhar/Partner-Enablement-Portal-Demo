@@ -1,0 +1,21 @@
+sequenceDiagram
+  actor U as Partner user
+  participant W as Firewall
+  participant P as Portal app
+  participant A as Sign-in service
+  participant L as Audit log / SOC
+  U->>W: Open portal
+  W->>P: Request allowed
+  U->>P: Email and password
+  P->>A: Check password (stored hashed), count attempts
+  alt 5 wrong attempts
+    A-->>P: Lock account for 15 minutes
+    P->>L: Security event, SOC alerted
+  else password correct
+    P-->>U: Ask for 6-digit code or passkey
+    U->>P: Code
+    P->>A: Verify code
+    A-->>P: Correct
+    P-->>U: Secure session, ends after 30 min idle
+    P->>L: Signed in (who, when, where)
+  end

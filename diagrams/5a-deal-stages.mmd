@@ -1,0 +1,21 @@
+stateDiagram-v2
+  direction TB
+  [*] --> Pending: partner submits
+  Pending --> Approved: Partner Manager, step-2 approver and final approver approve
+  Pending --> Rejected: rejected with reason
+  state Approved {
+    state "Update due" as UpdateDue
+    [*] --> Active
+    Active --> UpdateDue: 30 days, no update
+    UpdateDue --> Inactive: 50 days, no update
+    UpdateDue --> Active: progress update
+    Inactive --> Active: progress update
+  }
+  Approved --> Won: deal won
+  Approved --> Lost: partner marks lost
+  Approved --> Lost: inactive, customer given to another partner
+  Approved --> Expired: protection period ends
+  Won --> [*]
+  Lost --> [*]
+  Rejected --> [*]
+  Expired --> [*]

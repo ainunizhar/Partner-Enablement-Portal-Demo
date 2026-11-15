@@ -1,0 +1,9 @@
+stateDiagram-v2
+  direction TB
+  state "Awaiting invoice" as A
+  state "Invoice submitted" as I
+  state "Paid" as P
+  [*] --> A: deal marked Won (tier rate applied)
+  A --> I: partner uploads invoice
+  I --> P: Partner Manager, step-2 approver and final approver approve
+  P --> [*]

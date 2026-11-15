@@ -1,0 +1,12 @@
+flowchart LR
+  P1(["Partner: apply to join the program"]) -. creates task .-> S1(["Northwind Security: review partner applications"])
+  P6(["Partner: raise a support ticket"]) -. creates task .-> S5(["Northwind Security: answer partner tickets"])
+  P8(["Partner: register a deal, with proof"]) -. creates task .-> S13(["Customer: confirm the deal by email"])
+  P8 -. creates task .-> S6(["Northwind Security: verify, approve or reject deals"])
+  P9(["Partner: ask for a 30-day extension"]) -. creates task .-> S7(["Northwind Security: approve 30-day extensions"])
+  P13(["Partner: upload invoice"]) -. creates task .-> S10(["Northwind Security: release commission payouts"])
+
+  classDef partner fill:#FFFFFF,stroke:#3C4650,color:#1B2B3C
+  classDef staff fill:#EAF1F7,stroke:#1F4E79,color:#173B5C
+  class P1,P6,P8,P9,P13 partner
+  class S1,S5,S6,S7,S10,S13 staff

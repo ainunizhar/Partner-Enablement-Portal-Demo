@@ -1,0 +1,92 @@
+erDiagram
+  TIER ||--o{ PARTNER : "sets margin for"
+  APPLICATION |o--o| PARTNER : "becomes"
+  PARTNER ||--o{ USER : "employs"
+  STAFF ||--o{ PARTNER : "manages"
+  STAFF ||--o{ APPROVAL_STEP : "decides"
+  DEAL ||--o{ APPROVAL_STEP : "approved through"
+  PARTNER ||--o{ DEAL : "registers"
+  USER ||--o{ DEAL : "submits"
+  DEAL ||--o{ DEAL_EVENT : "history"
+  DEAL ||--o{ EVIDENCE : "proven by"
+  DEAL ||--o| COMMISSION : "earns"
+  PARTNER ||--o{ TICKET : "raises"
+  TICKET ||--o{ MESSAGE : "contains"
+  USER ||--o{ ENROLMENT : "takes"
+  COURSE ||--o{ ENROLMENT : "has"
+  TIER ||--o{ RESOURCE : "unlocks"
+  PRODUCT ||--o{ RESOURCE : "has material"
+  DEAL }o--o{ PRODUCT : "includes"
+  NEWS_POST ||--o{ NEWS_READ : "read by"
+  USER ||--o{ NEWS_READ : "reads"
+  USER ||--o{ SESSION : "has"
+  USER ||--o{ AUDIT_EVENT : "performs"
+  PARTNER {
+    uuid id PK
+    string name
+    string country
+    string type
+    uuid tier_id FK
+    uuid partner_manager_id FK
+    string status
+  }
+  STAFF {
+    uuid id PK
+    string name
+    string territory
+    string approver_level
+  }
+  APPROVAL_STEP {
+    uuid id PK
+    string item_type
+    string item_id
+    int step
+    uuid approver_id FK
+    string decision
+    string note
+    timestamp decided_at
+  }
+  USER {
+    uuid id PK
+    uuid partner_id FK
+    string email
+    string role
+    string mfa_method
+    string status
+  }
+  DEAL {
+    string id PK
+    uuid partner_id FK
+    string customer
+    string customer_reg_no
+    string contact_email
+    decimal value
+    string currency
+    string stage
+    string status
+    string customer_confirmation
+    date last_activity
+    date protected_until
+  }
+  EVIDENCE {
+    uuid id PK
+    string deal_id FK
+    string type
+    string file_ref
+    uuid uploaded_by FK
+    timestamp uploaded_at
+  }
+  COMMISSION {
+    uuid id PK
+    string deal_id FK
+    decimal rate
+    decimal amount
+    string status
+  }
+  AUDIT_EVENT {
+    uuid id PK
+    uuid user_id FK
+    string action
+    string level
+    timestamp at
+  }

@@ -1,0 +1,38 @@
+flowchart LR
+  PUSR["Partner users<br/>browser, any device"]
+  STAFF["Northwind Security staff<br/>browser, company laptop"]
+  FD["Azure Front Door + firewall (WAF)<br/>TLS 1.2+ and HSTS, DDoS protection<br/>OWASP attack rules, rate limits<br/>bot block, bad-IP and geo rules<br/>the only public entry point"]
+
+  subgraph PRIV["Private network - Azure, Malaysia region - no public access to app data"]
+    AC["Access check<br/>role allowed? own company?"]
+    APPN["Portal app (web + API)<br/>sign-in, two-step, sessions<br/>deals and duplicate check<br/>products, news, resources<br/>training and certificates<br/>commissions and payouts<br/>tickets and notifications<br/>audit logger (every action)"]
+    DB[("PostgreSQL database<br/>row-level security per partner<br/>encrypted, daily tested backups")]
+    BLOB[("File storage (Blob)<br/>private, encrypted, versioned")]
+    SCAN["Malware scanner<br/>every upload, before use"]
+    KV["Key Vault<br/>passwords, keys, certificates"]
+  end
+
+  ENTRA["Microsoft Entra ID<br/>staff login + MFA"]
+  MAIL["Email service<br/>alerts to users"]
+  SIEM["Northwind Security SIEM<br/>watched by the SOC"]
+  CRM["CRM<br/>Phase 3"]
+
+  PUSR -->|HTTPS| FD
+  STAFF -->|HTTPS| FD
+  FD -->|clean traffic| AC
+  AC -->|allowed requests| APPN
+  APPN -->|SQL| DB
+  APPN -->|files, links expire in 5 min| BLOB
+  BLOB -->|scan| SCAN
+  APPN -->|keys| KV
+  APPN -->|staff SSO| ENTRA
+  APPN -->|sends| MAIL
+  APPN -->|audit + security events| SIEM
+  APPN -.->|deal sync| CRM
+
+  classDef key fill:#EAF1F7,stroke:#1F4E79,color:#173B5C
+  classDef data fill:#FFFFFF,stroke:#8FA6BC,color:#1B2B3C
+  classDef later fill:#FFFFFF,stroke:#9AA0A8,stroke-dasharray:5 4,color:#5E6269
+  class AC key
+  class DB,BLOB,SCAN,KV data
+  class CRM later

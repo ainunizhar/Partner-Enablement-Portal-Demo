@@ -1,0 +1,20 @@
+flowchart LR
+  REQ(["Every request"]) --> C1["1. Firewall<br/>blocks attacks, bots"]
+  C1 -->|pass| C2["2. Signed in?<br/>valid session cookie"]
+  C2 -->|yes| C3["3. Two-step done?<br/>code or passkey"]
+  C3 -->|yes| C4["4. Role allows it?<br/>e.g. Sales cannot see commissions"]
+  C4 -->|yes| C5["5. Own company?<br/>row-level security"]
+  C5 -->|yes| C6["6. Do the action<br/>input validated"]
+  C6 --> LOG["Audit log<br/>copy sent to SOC"]
+
+  C1 -->|fail| BLOCK["Blocked: request refused<br/>sign in again, or not allowed<br/>recorded as a security event"]
+  C2 -->|no| BLOCK
+  C3 -->|no| BLOCK
+  C4 -->|no| BLOCK
+  C5 -->|no| BLOCK
+  BLOCK -->|logged| LOG
+
+  classDef key fill:#EAF1F7,stroke:#1F4E79,color:#173B5C
+  classDef bad fill:#FDECEC,stroke:#B3261E,color:#B3261E
+  class C4,C5 key
+  class BLOCK bad

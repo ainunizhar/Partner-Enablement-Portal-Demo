@@ -1,0 +1,35 @@
+sequenceDiagram
+  autonumber
+  actor S as Partner Sales
+  participant P as Portal app
+  participant D as Database
+  actor C as Partner Manager
+  participant E as Email
+  actor K as Customer contact
+  actor F as Step-2 approver
+  actor X as Final approver
+  S->>P: Submit deal (customer, contact, services, value, proof of budget)
+  P->>P: Check role, validate every field, block personal email addresses
+  P->>D: Search active deals for the same customer
+  D-->>P: Match found or no match
+  P->>D: Save as Pending, with evidence and conflict flag
+  P->>E: Ask the customer contact to confirm the opportunity
+  E-->>K: Please confirm: Northwind Security services with this partner
+  K->>P: Yes, I confirm (or No, this is not correct)
+  P->>E: Tell the partner's own Partner Manager a deal is waiting
+  E-->>C: New deal to review (own territory only)
+  C->>P: Check verification, then approve step 1, request information or reject
+  P->>F: Step 2 of 3: second approval
+  F->>P: Approve, send back or reject
+  P->>X: Step 3 of 3: final approval
+  X->>P: Approve, send back or reject
+  Note over P,X: Reminder after 2 working days at any step, and after 4 the item is flagged and escalated
+  P->>D: Approved, protected for 90 days
+  P->>E: Tell the partner the decision
+  E-->>S: Deal approved, protected until date
+  loop At least every 30 days until won or lost
+    S->>P: Post progress update (stage, note, next step)
+    P->>D: Save update, reset the activity clock
+  end
+  Note over P,C: No update for 30 days: reminder. No update for 50 days: protection suspended and the customer can go to another partner
+  Note over P,D: Every step above is written to the audit log

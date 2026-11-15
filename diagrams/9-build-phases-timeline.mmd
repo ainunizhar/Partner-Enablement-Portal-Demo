@@ -1,0 +1,30 @@
+flowchart LR
+  subgraph PH1["Phase 1 - Launch (MVP), about 8 to 10 weeks"]
+    direction TB
+    A1["Apply, sign in with two-step, dashboard"]
+    A2["Deal registration and approvals"]
+    A3["Products, resources, announcements, program page"]
+    A4["Company settings: users, roles, sessions"]
+    A5["Staff: tiers, publishing, audit log to SOC"]
+    A6["All security checks + penetration test"]
+    A1 ~~~ A2 ~~~ A3 ~~~ A4 ~~~ A5 ~~~ A6
+  end
+  subgraph PH2["Phase 2 - Enablement, about 6 to 8 weeks"]
+    direction TB
+    B1["Training and certificates"]
+    B2["Commissions, invoices, payouts"]
+    B3["Customers, services and reports"]
+    B4["Support cases"]
+    B5["Marketing campaigns"]
+    B1 ~~~ B2 ~~~ B3 ~~~ B4 ~~~ B5
+  end
+  subgraph PH3["Phase 3 - Scale, about 6 to 8 weeks"]
+    direction TB
+    C1["Quote builder"]
+    C2["Marketing funds (MDF)"]
+    C3["Co-selling, partner locator"]
+    C4["CRM integration"]
+    C5["Partner analytics"]
+    C1 ~~~ C2 ~~~ C3 ~~~ C4 ~~~ C5
+  end
+  PH1 ==> PH2 ==> PH3

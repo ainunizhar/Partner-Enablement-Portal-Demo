@@ -1,0 +1,9 @@
+flowchart LR
+  S4(["Northwind Security: post company updates"]) == publishes ==> P4(["Partner: read news and updates"])
+  S8(["Northwind Security: publish resources and marketing kit"]) == publishes ==> P10(["Partner: download sales resources"])
+  S8 == publishes ==> P11(["Partner: use the marketing kit"])
+
+  classDef partner fill:#FFFFFF,stroke:#3C4650,color:#1B2B3C
+  classDef staff fill:#EAF1F7,stroke:#1F4E79,color:#173B5C
+  class P4,P10,P11 partner
+  class S4,S8 staff

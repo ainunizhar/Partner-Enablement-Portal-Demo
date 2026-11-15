@@ -1,0 +1,51 @@
+flowchart LR
+  APP["Applicant<br/>company not yet a partner"]
+  PU["Any partner user<br/>every role below"]
+  PS["Partner Sales"]
+  PT["Partner Technical"]
+  PF["Partner Finance"]
+  PA["Partner Admin<br/>also everything above"]
+
+  subgraph PORTAL["Partner side"]
+    P1(["Apply to join, choose a Partner Manager"])
+    P2(["Sign in with two-step verification"])
+    P3(["View dashboard, tier and notifications"])
+    P4(["Read announcements and messages"])
+    P5(["Complete training, get certified"])
+    P6(["Raise and follow support cases"])
+    P7(["Browse products and local prices"])
+    P8(["Register a deal with proof of budget"])
+    P9(["Post progress, add documents, won or lost"])
+    P15(["View deal status"])
+    P10(["Download sales resources"])
+    P11(["Use the marketing kit"])
+    P12(["View customer services and reports"])
+    P13(["View commissions, upload invoices"])
+    P14(["Manage team, roles and sessions"])
+  end
+
+  APP --- P1
+  PU --- P2
+  PU --- P3
+  PU --- P4
+  PU --- P6
+  PS --- P7
+  PS --- P8
+  PS --- P9
+  PS --- P10
+  PS --- P11
+  PS --- P5
+  PT --- P7
+  PT --- P15
+  PT --- P5
+  PT --- P10
+  PT --- P12
+  PF --- P13
+  PA --- P14
+
+  classDef actor fill:#FFFFFF,stroke:#1B2B3C,color:#1B2B3C
+  classDef uc fill:#FFFFFF,stroke:#3C4650,color:#1B2B3C
+  classDef content fill:#EAF1F7,stroke:#1F4E79,color:#173B5C
+  class APP,PU,PS,PT,PF,PA actor
+  class P1,P2,P3,P5,P6,P8,P9,P10,P12,P13,P14,P15 uc
+  class P4,P7,P11 content
